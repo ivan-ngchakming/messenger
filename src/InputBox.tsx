@@ -1,22 +1,21 @@
 import { useState} from 'react';
-import FormControl from '@mui/material/FormControl';
-import { Box, IconButton, InputBase } from "@mui/material";
+import { Box, IconButton, InputBase, Grid } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import { styled } from '@mui/material/styles';
 
 const StyledInput = styled(InputBase)({
-  backgroundColor: 'rgba(134, 142, 153, 0.1)',
-  borderRadius: '20px',
-  border: 'none',
-  '& .MuiInputBase-adornedStart': {
-    marginLeft: 10,
+  '& .MuiInputBase-input': {
+    backgroundColor: 'rgba(134, 142, 153, 0.1)',
+    borderRadius: '20px',
+    border: 'none',
+    paddingLeft: 15,
   }
 });
 
-const InputBox = ({ onSend }) => {
+const InputBox = ({ onSend }: { onSend: (userInput: string) => void }) => {
   const [input, setInput] = useState('');
 
-  const handleChange = (event) => {
+  const handleChange = (event: any) => {
     setInput(event.target.value);
   };
 
@@ -27,18 +26,21 @@ const InputBox = ({ onSend }) => {
   }
 
   return (
-    <Box component="form" noValidate autoComplete="off">
-      <FormControl sx={{ width: '25ch' }}>
-        <StyledInput 
-          variant='standard'
+    <Box sx={{ width: 200 }}>
+      <Grid container spacing={1} direction='row' alignItems='center'>
+        <Grid item xs={10}>
+        <StyledInput
           placeholder='Aa'
           value={input}
           onChange={handleChange}
         />
+        </Grid>
+        <Grid item xs={2}>
         <IconButton onClick={handleSend}>
           <SendIcon />
         </IconButton>
-      </FormControl>
+        </Grid>
+      </Grid>
     </Box>
   )
 };

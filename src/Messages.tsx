@@ -1,6 +1,6 @@
-import Message from "./Message";
+import Message, { MessageType } from "./Message";
 
-const Messages = ({messages, currentUser}) => {
+const Messages = ({messages, currentUser}: {messages: MessageType[], currentUser: string }) => {
   return (
     <>
       {messages.map(message => (

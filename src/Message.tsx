@@ -1,6 +1,8 @@
 import { Card, CardContent, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
+export type MessageType = { text: string, username: string };
+
 const ToCard = styled(Card)({
   borderRadius: '18px'
 })
@@ -10,7 +12,7 @@ const FromCard = styled(Card)({
   borderRadius: '18px'
 })
 
-const Message = ({ message, currentUser }) => {
+const Message = ({ message, currentUser }: { message: MessageType, currentUser: string }) => {
   const isCurrentUser = message.username === currentUser;
   const MessageCard = isCurrentUser ? FromCard : ToCard;
 

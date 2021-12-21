@@ -9,7 +9,7 @@ function App() {
   ]);
   const [currentUser, setCurrentUser] = useState('user1');
 
-  const handleSend = (userInput) => {
+  const handleSend = (userInput: string) => {
     setMessages(prev => ([...prev, { username: currentUser, text: userInput }]))
   }
 
