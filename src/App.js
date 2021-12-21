@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import InputBox from './InputBox';
+import Messages from './Messages';
 
 function App() {
+  const [messages, setMessages] = useState([
+    {text: 'test 1', username: 'user1'}, 
+    {text: 'test 2', username: 'user2'}
+  ]);
+  const [currentUser, setCurrentUser] = useState('user1');
+
+  const handleSend = (userInput) => {
+    setMessages(prev => ([...prev, { username: currentUser, text: userInput }]))
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Messages messages={messages} currentUser={currentUser} />
+      <br />
+      <InputBox 
+        onSend={handleSend}
+      />
+    </>
   );
 }
 
