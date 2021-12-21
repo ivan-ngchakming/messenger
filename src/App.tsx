@@ -1,25 +1,22 @@
-import { useState } from 'react';
-import InputBox from './InputBox';
-import Messages from './Messages';
+import { Grid } from '@mui/material';
+import ChatBox from './ChatBox';
 
 function App() {
-  const [messages, setMessages] = useState([
-    {text: 'test 1', username: 'user1'}, 
-    {text: 'test 2', username: 'user2'}
-  ]);
-  const [currentUser, setCurrentUser] = useState('user1');
-
-  const handleSend = (userInput: string) => {
-    setMessages(prev => ([...prev, { username: currentUser, text: userInput }]))
-  }
+  
 
   return (
     <>
-      <Messages messages={messages} currentUser={currentUser} />
-      <br />
-      <InputBox 
-        onSend={handleSend}
-      />
+      <Grid container>
+        <Grid item xs={3.5}>
+          {/* TODO: Contact list */}
+        </Grid>
+        <Grid item xs={5}>
+          <ChatBox />
+        </Grid>
+        <Grid item xs={3.5}>
+          {/* TODO: User profile */}
+        </Grid>
+      </Grid>
     </>
   );
 }

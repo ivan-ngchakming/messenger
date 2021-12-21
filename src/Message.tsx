@@ -3,14 +3,24 @@ import { styled } from '@mui/material/styles';
 
 export type MessageType = { text: string, username: string };
 
-const ToCard = styled(Card)({
-  borderRadius: '18px'
+const StyledCard = styled(Card)({
+  borderRadius: '18px',
+  height: 30,
+  marginTop: 10,
+});
+
+const ToCard = styled(StyledCard)({
+
 })
 
-const FromCard = styled(Card)({
+const FromCard = styled(StyledCard)({
   backgroundColor: 'rgb(0, 132, 255)',
-  borderRadius: '18px'
 })
+
+const StyledCardContent = styled(CardContent)({
+  paddingTop: 3,
+  paddingLeft: 12,
+});
 
 const Message = ({ message, currentUser }: { message: MessageType, currentUser: string }) => {
   const isCurrentUser = message.username === currentUser;
@@ -18,15 +28,14 @@ const Message = ({ message, currentUser }: { message: MessageType, currentUser: 
 
   return (
     <MessageCard >
-      <CardContent>
+      <StyledCardContent>
         <Typography
           color={isCurrentUser ? 'white' : 'black'}
-          variant='h5'
-          component='h2'
+          variant='body1'
         >
           {message.username}: {message.text}
         </Typography>
-      </CardContent>
+      </StyledCardContent>
     </MessageCard>
   )
 }
