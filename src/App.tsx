@@ -11,7 +11,10 @@ function App() {
           {/* TODO: Contact list */}
         </Grid>
         <Grid item xs={5}>
-          <ChatBox />
+          <ChatBox 
+            currentUser={{ id: 1, name: 'user1' }}
+            chattingWithUser={{ id: 2, name: 'user2' }}
+          />
         </Grid>
         <Grid item xs={3.5}>
           {/* TODO: User profile */}

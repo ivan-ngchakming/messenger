@@ -1,5 +1,6 @@
 import { Card, CardContent, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { User } from './UserCard';
 
 export type MessageType = { text: string, username: string };
 
@@ -22,8 +23,8 @@ const StyledCardContent = styled(CardContent)({
   paddingLeft: 12,
 });
 
-const Message = ({ message, currentUser }: { message: MessageType, currentUser: string }) => {
-  const isCurrentUser = message.username === currentUser;
+const Message = ({ message, currentUser }: { message: MessageType, currentUser: User }) => {
+  const isCurrentUser = message.username === currentUser.name;
   const MessageCard = isCurrentUser ? FromCard : ToCard;
 
   return (
