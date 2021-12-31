@@ -25,6 +25,12 @@ const InputBox = ({ onSend }: { onSend: (userInput: string) => void }) => {
     onSend(input);
     setInput('');
   }
+
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if(event.key === 'Enter'){
+      handleSend();
+    }
+  }
   
   return (
     <Box sx={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
@@ -32,6 +38,7 @@ const InputBox = ({ onSend }: { onSend: (userInput: string) => void }) => {
         placeholder='Aa'
         value={input}
         onChange={handleChange}
+        onKeyPress={handleKeyPress}
       />
       <IconButton onClick={handleSend}>
         <SendIcon />
