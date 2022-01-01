@@ -1,19 +1,17 @@
 import { useState } from "react";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut as firebaseSignOut } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut as firebaseSignOut, User } from "firebase/auth";
 import { app as firebaseApp } from '../firebase';
 
 const auth = getAuth(firebaseApp);
 
 const useAuth = () => {
-	const [signedIn, setSignedIn] = useState(false);
+	const [user, setUser] = useState<User|null>(null);
 	
-	const signIn = () => {
-		const email = 'test@gmail.com';
-		const password = 'test1234';
-
+	const signIn = (email: string, password: string) => {
 		signInWithEmailAndPassword(auth, email, password)
 			.then((userCredential) => {
 				const user = userCredential.user;
+				setUser(user);
 			})
 			.catch((error) => {
 				console.error('sign-in error', error);
@@ -30,16 +28,13 @@ const useAuth = () => {
 
 	onAuthStateChanged(auth, (user) => {
 		if (user) {
-			const uid = user.uid;
-			console.log('User logged-in', user)
-			setSignedIn(true);
+			setUser(user);
 		} else {
-			console.log('User logged-out')
-			setSignedIn(false);
+			setUser(null);
 		}
 	});
 
-	return { signedIn, signOut, signIn }
+	return { user, signOut, signIn }
 }
 
 export default useAuth;

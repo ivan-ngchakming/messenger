@@ -21,9 +21,10 @@ const InputBox = ({ onSend }: { onSend: (userInput: string) => void }) => {
   };
 
   const handleSend = () => {
-    console.log("sending " + input);
-    onSend(input);
-    setInput('');
+    if (input) {
+      onSend(input);
+      setInput('');
+    }
   }
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -40,7 +41,7 @@ const InputBox = ({ onSend }: { onSend: (userInput: string) => void }) => {
         onChange={handleChange}
         onKeyPress={handleKeyPress}
       />
-      <IconButton onClick={handleSend}>
+      <IconButton onClick={handleSend} disabled={input === ''}>
         <SendIcon />
       </IconButton>
     </Box>

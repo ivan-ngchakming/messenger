@@ -1,11 +1,12 @@
-import { useState } from 'react';
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { User } from 'firebase/auth';
+import useMessages from './hooks/useMessages';
 import UserCard from './UserCard';
 import InputBox from './InputBox';
 import Messages from './Messages';
-import useMessages from './hooks/useMessages';
-import { User, Message as MessageType } from './types';
+import ContextMenu from './ContextMenu';
+import { UserContact } from './types';
 
 const StyledMessagesBox = styled(Box)({
   height: `calc(100vh - 175px)`,
@@ -21,8 +22,8 @@ const StyledMessagesBox = styled(Box)({
   scrollbarColor: 'transparent transparent', // just hides the scrollbar for firefox
 })
 
-const ChatBox = ({ currentUser, chattingWithUser }: { currentUser: User, chattingWithUser: User }) => {
-  const { send, messages } = useMessages({ currentUser: currentUser, toUser: chattingWithUser })
+const ChatBox = ({ currentUser, chattingWithUser }: { currentUser: User, chattingWithUser: UserContact }) => {
+  const { send, messages, clearAll } = useMessages({ currentUser: currentUser, toUser: chattingWithUser })
 
   const handleSend = (userInput: string) => {
     send(userInput);
@@ -31,13 +32,16 @@ const ChatBox = ({ currentUser, chattingWithUser }: { currentUser: User, chattin
   return (
     <Box sx={{ height: '100vh' }}>
       <UserCard user={chattingWithUser} />
-      <StyledMessagesBox>
-        <Messages messages={messages} currentUser={currentUser} />
-      </StyledMessagesBox>
-      <br />
-      <InputBox
-        onSend={handleSend}
-      />
+      <ContextMenu menuItems={[{label: 'Clear', callback: clearAll }]}>
+        <StyledMessagesBox>
+          <Messages messages={messages} currentUser={currentUser} />
+        </StyledMessagesBox>
+        <br />
+        <InputBox
+          onSend={handleSend}
+        />
+      </ContextMenu>
+      {/* <div><button onClick={clearAll}>Clear</button></div> */}
     </Box>
   )
 }

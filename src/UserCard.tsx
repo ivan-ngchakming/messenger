@@ -1,6 +1,6 @@
 import { Avatar, Box, Badge, Card, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { User } from './types';
+import { UserContact } from './types';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -39,7 +39,7 @@ const StyledCard = styled(Card)({
 	paddingBottom: 10,
 });
 
-const UserCard = ({ user }: { user: User }) => {
+const UserCard = ({ user }: { user: UserContact }) => {
   
   return (
     <StyledCard>
@@ -54,7 +54,7 @@ const UserCard = ({ user }: { user: User }) => {
 					</StyledBadge>
 				</Box>
 				<Typography>
-					{ user.name }
+					{ user.displayName || user.email }
 				</Typography>
 			</Box>
     </StyledCard>

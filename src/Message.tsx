@@ -1,6 +1,7 @@
 import { Box, Card, CardContent, Typography } from '@mui/material';
+import { User } from 'firebase/auth';
 import { styled } from '@mui/material/styles';
-import { User, Message as MessageType } from './types';
+import { Message as MessageType } from './types';
 
 const StyledCard = styled(Card)({
   marginTop: 10,
@@ -26,7 +27,7 @@ const StyledCardContent = styled(CardContent)({
 });
 
 const Message = ({ message, currentUser }: { message: MessageType, currentUser: User }) => {
-  const isCurrentUser = message.from === currentUser.id;
+  const isCurrentUser = message.from === currentUser.uid;
   const MessageCard = isCurrentUser ? FromCard : ToCard;
 
   return (
