@@ -1,7 +1,7 @@
 import { Box, Card, CardContent, Typography } from '@mui/material';
 import { User } from 'firebase/auth';
 import { styled } from '@mui/material/styles';
-import { Message as MessageType } from './types';
+import { Message as MessageType } from '../types';
 
 const StyledCard = styled(Card)({
   marginTop: 10,

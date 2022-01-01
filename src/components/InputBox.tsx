@@ -10,6 +10,7 @@ const StyledInput = styled(InputBase)({
     borderRadius: '20px',
     border: 'none',
     paddingLeft: 15,
+    marginLeft: 15,
   }
 });
 

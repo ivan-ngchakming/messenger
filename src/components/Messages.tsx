@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { User } from 'firebase/auth';
 import Message from "./Message";
-import { Message as MessageType } from './types';
+import { Message as MessageType } from '../types';
 
 const Messages = ({messages, currentUser}: {messages: MessageType[] | null, currentUser: User }) => {
   const dummyRef = useRef<HTMLElement | null>();

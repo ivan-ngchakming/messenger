@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material';
-import ChatBox from './ChatBox';
+import ChatBox from './components/ChatBox';
 import useAuth from './hooks/useAuth';
 
 const testUser = {
@@ -16,24 +16,28 @@ const demoUser = {
 
 function App() {
   const { signIn, signOut, user } = useAuth();
+
+  const viewWidth = window.innerWidth;
   
   return (
     <>
       <Grid container>
-        <Grid item xs={3.5}>
-          {/* TODO: Contact list */}
-          <div>You are {user ? `Signed-in as ${user.email}` : 'Signed-out' }</div>
-          <div>
-            <button onClick={() => signIn('test@gmail.com', 'test1234')}>Sign In Test</button>
-          </div>
-          <div>
-            <button onClick={() => signIn('demo@gmail.com', 'demo1234')}>Sign In Demo</button>
-          <div>
-          </div>
-            <button onClick={signOut}>Sign Out</button>
-          </div>
-        </Grid>
-        <Grid item xs={5}>
+        { (!user || viewWidth > 600) && (
+          <Grid item xs={12} sm={3}>
+            {/* TODO: Contact list */}
+            <div>You are {user ? `Signed-in as ${user.email}` : 'Signed-out' }</div>
+            <div>
+              <button onClick={() => signIn('test@gmail.com', 'test1234')}>Sign In Test</button>
+            </div>
+            <div>
+              <button onClick={() => signIn('demo@gmail.com', 'demo1234')}>Sign In Demo</button>
+            <div>
+            </div>
+              <button onClick={signOut}>Sign Out</button>
+            </div>
+          </Grid>
+        )}
+        <Grid item xs={12} sm={9}>
           {user ? (
             <ChatBox 
               currentUser={user}
@@ -42,9 +46,6 @@ function App() {
           ) : (
             "Login To Continue"
           )}
-        </Grid>
-        <Grid item xs={3.5}>
-          {/* TODO: User profile */}
         </Grid>
       </Grid>
     </>

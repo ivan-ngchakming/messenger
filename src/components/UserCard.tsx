@@ -1,6 +1,6 @@
 import { Avatar, Box, Badge, Card, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { UserContact } from './types';
+import { UserContact } from '../types';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
