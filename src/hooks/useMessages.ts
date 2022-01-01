@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { collection, addDoc, doc, deleteDoc, onSnapshot, query, orderBy, limit, where, serverTimestamp } from "firebase/firestore";
+import { logEvent } from "firebase/analytics";
 import { User as FirebaseUser } from "firebase/auth";
-import { db } from '../firebase';
+import { db, analytics } from '../firebase';
 import { Message, UserContact } from '../types';
 
 const useMessages = ({ currentUser, toUser }: { currentUser: FirebaseUser, toUser: UserContact }) => {
@@ -15,6 +16,9 @@ const useMessages = ({ currentUser, toUser }: { currentUser: FirebaseUser, toUse
 				text: text,
 				created: serverTimestamp() 
 			});
+			
+			logEvent(analytics, 'send_message');
+
 			console.log("Document written with ID: ", docRef.id);
 		} catch (e) {
 			console.error("Error adding document: ", e);
@@ -26,6 +30,7 @@ const useMessages = ({ currentUser, toUser }: { currentUser: FirebaseUser, toUse
 		messages.forEach(message => {
 			deleteDoc(doc(db, 'messages', message.id));
 		})
+		logEvent(analytics, 'clear_messages');
 	}
 
 	const queryFromMessages = useCallback(() => {
