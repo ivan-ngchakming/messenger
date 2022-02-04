@@ -9,18 +9,6 @@ import { app as firebaseApp } from '../firebase';
 import useContacts from '../hooks/useContacts';
 import { UserContact } from '../types';
 
-const testUser = {
-  uid: 'bQgXbip8ldONs4xfHKoFTqJGIEz1',
-  displayName: null,
-  email: 'test@gmail.com',
-}
-
-const demoUser = {
-  uid: 'JWHUW4cEKygO3WoAz0NCmiVaeIY2',
-  displayName: null,
-  email: 'demo@gmail.com',
-}
-
 const Messenger = () => {
   const auth = getAuth(firebaseApp);
 	const [chattingWith, setChattingWith] = useState<UserContact>();
