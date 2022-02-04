@@ -55,7 +55,7 @@ const ContextMenu = ({
             : undefined
         }
       >
-        {menuItems.map(({ label, callback }) => <MenuItem onClick={handleClick(callback)}>{label}</MenuItem>)}
+        {menuItems.map(({ label, callback }) => <MenuItem key={label} onClick={handleClick(callback)}>{label}</MenuItem>)}
         
       </Menu>
     </div>

@@ -69,7 +69,7 @@ const Login = () => {
 							/>
 						</Box>
 						<Box display='flex' justifyContent='center'>
-							<Button sx={{ m: 1 }} color="primary" variant="contained" type="submit">
+							<Button sx={{ m: 1 }} color="primary" variant="contained" type="submit" disabled={isSubmitting}>
 								Submit
 							</Button>
 						</Box>

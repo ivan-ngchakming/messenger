@@ -1,9 +1,13 @@
+import { useState } from 'react';
 import { Grid } from '@mui/material';
-import { getAuth, signOut } from "firebase/auth";
-import { useNavigate } from 'react-router-dom';
+import { getAuth } from "firebase/auth";
+
 import ChatBox from '../components/ChatBox';
+import Contacts from '../components/Contacts';
 import RequireAuth from '../RequireAuth';
 import { app as firebaseApp } from '../firebase';
+import useContacts from '../hooks/useContacts';
+import { UserContact } from '../types';
 
 const testUser = {
   uid: 'bQgXbip8ldONs4xfHKoFTqJGIEz1',
@@ -19,36 +23,28 @@ const demoUser = {
 
 const Messenger = () => {
   const auth = getAuth(firebaseApp);
-	const navigate = useNavigate();
-
-  const viewWidth = window.innerWidth;
-  
-	const handleSignout = () => {
-		signOut(auth).then(res => {
-			navigate('/login');
-		})
-	}
+	const [chattingWith, setChattingWith] = useState<UserContact>();
+	const contacts = useContacts(auth.currentUser?.uid);
 
   return (
 		<RequireAuth>
     <Grid container>
-			{(!auth.currentUser || viewWidth > 600) && (
-				<Grid item xs={12} sm={3}>
-				{/* TODO: Contact list */}
-				<div>You are {auth.currentUser ? `Signed-in as ${auth.currentUser.email}` : 'Signed-out' }</div>
-				<div>
-					<button onClick={handleSignout}>Sign Out</button>
-				</div>
-				</Grid>
-			)}
+			<Grid item xs={12} sm={3}>
+				<Contacts 
+					contacts={contacts}
+					selected={chattingWith}
+					onSelect={(user: UserContact) => setChattingWith(user)}
+				/>
+			</Grid>
 			<Grid item xs={12} sm={9}>
-				{auth.currentUser ? (
-				<ChatBox 
+				{chattingWith ? (
+				<ChatBox
+					// @ts-ignore
 					currentUser={auth.currentUser}
-					chattingWithUser={auth.currentUser.email === demoUser.email ? testUser : demoUser}
+					chattingWithUser={chattingWith}
 				/>
 				) : (
-					"Login To Continue"
+					"Select a contact to start Chatting"
 				)}
 			</Grid>
     </Grid>

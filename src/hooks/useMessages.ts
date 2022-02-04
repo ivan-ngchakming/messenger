@@ -34,17 +34,14 @@ const useMessages = ({ currentUser, toUser }: { currentUser: FirebaseUser, toUse
 	}
 
 	const queryFromMessages = useCallback(() => {
-		console.log('start from message query callback')
 		const fromQuery = query(collection(db, "messages"), where('from', '==', currentUser.uid), where('to', '==', toUser.uid), orderBy("created"), limit(100));
 
 		let unsubscribeFrom = onSnapshot(fromQuery, (FromQuerySnapshot) => {
-			console.log('query from messages')
 			const fromMessages: any = [];
 			// eslint ignore
 			FromQuerySnapshot.forEach((doc) => {
 				fromMessages.push({...doc.data(), id: doc.id});
 			});
-			console.log("Current from data: ", fromMessages);
 
 			setAllMessages(prev => ({
 				to: prev?.to || [],
@@ -56,17 +53,14 @@ const useMessages = ({ currentUser, toUser }: { currentUser: FirebaseUser, toUse
 	}, [currentUser.uid, toUser.uid]);
 
 	const queryToMessages = useCallback(() => {
-		console.log('start to message query callback')
 		const toQuery = query(collection(db, "messages"), where('to', '==', currentUser.uid), where('from', '==', toUser.uid), orderBy("created"), limit(100));
 		
 		const unsubscribeTo = onSnapshot(toQuery, (ToQuerySnapshot) => {
-			console.log('query to messages')
 			const toMessages: any = [];
 			// eslint ignore
 			ToQuerySnapshot.forEach((doc) => {
 				toMessages.push({...doc.data(), id: doc.id});
 			});
-			console.log("Current to data: ", toMessages);
 
 			setAllMessages(prev => ({
 				to: toMessages || [],
