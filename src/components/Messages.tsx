@@ -16,7 +16,7 @@ const Messages = ({messages, currentUser}: {messages: MessageType[] | null, curr
     <>
       {messages ? (
         messages.map(message => (
-          <Message key={message.text} message={message} currentUser={currentUser} />
+          <Message key={message.text + message.created?.seconds || '-'} message={message} currentUser={currentUser} />
         ))
       ) : (
         "Loading"
