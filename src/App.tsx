@@ -4,6 +4,7 @@ import {
   Route,
 } from "react-router-dom";
 
+import { AuthProvider } from './contexts/AuthContext';
 import Messenger from './pages/Messenger';
 import Login from './pages/Login';
 
@@ -11,10 +12,12 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Messenger />} />
-        <Route path='login' element={<Login />} />
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route path='/' element={<Messenger />} />
+          <Route path='login' element={<Login />} />
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 }
