@@ -1,18 +1,17 @@
 import { useState } from 'react';
 import { Grid } from '@mui/material';
-import { getAuth } from "firebase/auth";
 
+import { useAuth } from '../contexts/AuthContext';
 import ChatBox from '../components/ChatBox';
 import Contacts from '../components/Contacts';
 import RequireAuth from '../RequireAuth';
-import { app as firebaseApp } from '../firebase';
 import useContacts from '../hooks/useContacts';
 import { UserContact } from '../types';
 
 const Messenger = () => {
-  const auth = getAuth(firebaseApp);
+	const { currentUser } = useAuth();
 	const [chattingWith, setChattingWith] = useState<UserContact>();
-	const contacts = useContacts(auth.currentUser?.uid);
+	const contacts = useContacts(currentUser?.uid);
 
   return (
 		<RequireAuth>
@@ -28,7 +27,7 @@ const Messenger = () => {
 				{chattingWith ? (
 				<ChatBox
 					// @ts-ignore
-					currentUser={auth.currentUser}
+					currentUser={currentUser}
 					chattingWithUser={chattingWith}
 				/>
 				) : (
