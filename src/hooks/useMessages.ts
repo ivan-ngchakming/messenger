@@ -95,8 +95,7 @@ const useMessages = ({ currentUser, toUser }: { currentUser: FirebaseUser, toUse
 			unsubscribeTo();
 			unsubscribeFrom();
 		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	}, [queryFromMessages, queryToMessages])
 	
 	return { send, messages, clearAll };
 }

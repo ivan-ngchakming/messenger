@@ -1,7 +1,7 @@
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { Box, Button, TextField, Typography, Paper } from '@mui/material';
+import { useNavigate, useLocation, Link as RouterLink } from 'react-router-dom';
+import { Box, Button, TextField, Typography, Paper, Link } from '@mui/material';
 
 import { useAuth } from '../contexts/AuthContext';
 
@@ -40,7 +40,7 @@ const Login = () => {
 					})
 				}}
 			>
-				{({ isSubmitting, values, errors, touched, handleChange }) => (
+				{({ isSubmitting, values, errors, touched, handleChange, handleBlur }) => (
 					<Form>
 						<Box pb={4}>
 							<TextField
@@ -50,6 +50,7 @@ const Login = () => {
 								label="Email"
 								value={values.email}
 								onChange={handleChange}
+								onBlur={handleBlur}
 								error={touched.email && Boolean(errors.email)}
 								helperText={touched.email && errors.email}
 							/>
@@ -63,6 +64,7 @@ const Login = () => {
 								type="password"
 								value={values.password}
 								onChange={handleChange}
+								onBlur={handleBlur}
 								error={touched.password && Boolean(errors.password)}
 								helperText={touched.password && errors.password}
 							/>
@@ -75,6 +77,11 @@ const Login = () => {
 					</Form>
 				)}
 			</Formik>
+			<Box display='flex' justifyContent='flex-end' marginTop={4}>
+				<Link>
+					<RouterLink to='/register'>New user? Register here!</RouterLink>
+				</Link>
+			</Box>
 		</Paper>
 	)
 }
