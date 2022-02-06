@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { signInWithEmailAndPassword, signOut, User, UserCredential } from "firebase/auth";
+import { 
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  User,
+  UserCredential,
+} from "firebase/auth";
 import { auth } from "../firebase";
 import { createContext } from '../utils'
 
 type AuthContextValues = {
   currentUser: User | null;
-  login: (email: any, password: any) => Promise<UserCredential>;
+  register: (email: string, password: string) => Promise<UserCredential>;
+  login: (email: string, password: string) => Promise<UserCredential>;
   logout: () => Promise<void>;
 }
 
@@ -17,11 +24,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [currentUser, setCurrentUser] = useState<User|null>(null);
   const [loading, setLoading] = useState(true)
 
-  function login(email: any, password: any) {
+  const register = (email: any, password: any) => {
+    return createUserWithEmailAndPassword(auth, email, password)
+  }
+
+  const login = (email: string, password: string) => {
     return signInWithEmailAndPassword(auth, email, password)
   }
 
-  function logout() {
+  const logout = () => {
     return signOut(auth)
   }
 
@@ -36,6 +47,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const value = {
     currentUser,
+    register,
     login,
     logout,
   }
