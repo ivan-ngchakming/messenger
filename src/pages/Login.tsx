@@ -1,10 +1,9 @@
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Box, Button, TextField, Typography, Paper } from '@mui/material';
 
-import { app as firebaseApp } from '../firebase';
+import { useAuth } from '../contexts/AuthContext';
 
 const loginSchema = Yup.object().shape({
 	email: Yup.string().email().required(),
@@ -20,7 +19,7 @@ const loginSchema = Yup.object().shape({
  * TODO: Setup link to forget password page
  */
 const Login = () => {
-	const auth = getAuth(firebaseApp);
+	const { login } = useAuth();
 	const navigate = useNavigate();
 	const location = useLocation();
 
@@ -35,7 +34,7 @@ const Login = () => {
 				validationSchema={loginSchema}
 				onSubmit={(values, { setSubmitting }) => {
 					setSubmitting(true);
-					signInWithEmailAndPassword(auth, values.email, values.password).then(res => {
+					login(values.email, values.password).then(res => {
 						console.log(res);
 						navigate(from, { replace: true});
 					})
