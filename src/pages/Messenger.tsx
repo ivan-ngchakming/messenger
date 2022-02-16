@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Grid } from '@mui/material';
 
 import { useAuth } from '../contexts/AuthContext';
@@ -10,8 +10,12 @@ import { UserContact } from '../types';
 
 const Messenger = () => {
 	const { currentUser } = useAuth();
-	const [chattingWith, setChattingWith] = useState<UserContact>();
 	const contacts = useContacts(currentUser?.uid);
+	const [chattingWith, setChattingWith] = useState<UserContact>();
+
+	useEffect(() => {
+		if (!chattingWith && contacts.length > 0) setChattingWith(contacts[0]);
+	}, [contacts])
 
   return (
 		<RequireAuth>

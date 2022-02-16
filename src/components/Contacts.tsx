@@ -4,6 +4,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
+import { useAuth } from '../contexts/AuthContext';
 import { UserContact } from '../types';
 
 const StyledCard = styled(Card)({
@@ -18,7 +19,9 @@ const ContactCard = ({ contact, selected, onClick }: {
 }) => {
 
 	return (
-		<StyledCard key={contact.uid}>
+		<StyledCard key={contact.uid} style={{
+			backgroundColor: selected ? 'rgba(134, 142, 153, 0.1)' : 'none',
+		}}>
 			<CardActionArea disabled={selected} onClick={() => onClick(contact)}>
 				<CardContent>
 					<Typography gutterBottom variant="h5" component="div">
@@ -32,7 +35,7 @@ const ContactCard = ({ contact, selected, onClick }: {
 
 const ContactListArea = styled(Box)({
 	overflowY: 'scroll',
-	height: 'calc(100% - 60px - 20px )',
+	height: 'calc(100vh - 60px )',
 })
 
 const Contacts = ({ 
@@ -44,19 +47,21 @@ const Contacts = ({
 	selected: UserContact | undefined;
 	onSelect: (val: UserContact) => void;
 }) => {
+	const { currentUser } = useAuth();
 
 	return (
 		<Box>
-			<div style={{ height: '60px', backgroundColor: 'grey' }}>
-				User Profile Card Placeholder
-			</div>
-			<div style={{ height: '20px', backgroundColor: 'darkgrey' }}>
-				Search Bar Placeholder
-			</div>
+			<Box height='60px' display='flex' justifyContent='center' alignItems='center'>
+				<Typography>
+					{currentUser?.displayName || currentUser?.email}
+				</Typography>
+			</Box>
+
 			<ContactListArea>
 				{contacts.map((contact, index) => (
 					<>
 						<ContactCard
+							key={contact.uid}
 							contact={contact}
 							selected={contact===selected}
 							onClick={onSelect}
