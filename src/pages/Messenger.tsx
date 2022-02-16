@@ -15,7 +15,7 @@ const Messenger = () => {
 
 	useEffect(() => {
 		if (!chattingWith && contacts.length > 0) setChattingWith(contacts[0]);
-	}, [contacts])
+	}, [contacts]);  // eslint-disable-line
 
   return (
 		<RequireAuth>
