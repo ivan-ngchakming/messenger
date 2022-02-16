@@ -3,6 +3,8 @@
 This project started out as a facebook messenger clone, but I started taking references from other messenger such as WhatsApp and Telegram.
 Now the project has evolved into my own version of messenger.
 
+![screen](./docs/project-messenger.png)
+
 ## What is used in this project
 
 1. React.js & TypeScript
