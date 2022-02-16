@@ -20,7 +20,7 @@ const ContactCard = ({ contact, selected, onClick }: {
 
 	return (
 		<StyledCard key={contact.uid} style={{
-			backgroundColor: selected ? 'rgba(134, 142, 153, 0.1)' : 'none',
+			backgroundColor: selected ? 'rgba(134, 142, 153, 0.1)' : '#fff',
 		}}>
 			<CardActionArea disabled={selected} onClick={() => onClick(contact)}>
 				<CardContent>
